@@ -1,7 +1,522 @@
-body {
+:root {
+  --accent: #1677ff;
+  --text-main: #18181b;
+  --text-sub: #71717a;
+  --bg-page: #fafafa;
+  --surface: #ffffff;
+  --border: #ececef;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: #f5f5f5;
-  color: #222;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.site {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+  display: flex;
+  align-items: baseline;
+}
+
+.logo-dot {
+  color: var(--accent);
+}
+
+.city-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-sub);
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.city-switch:hover {
+  color: var(--text-main);
+}
+
+.city-arrow {
+  font-size: 10px;
+  color: #a1a1aa;
+}
+
+.header-search {
+  flex: 1;
+  max-width: 560px;
+}
+
+.search-select.ant-select {
+  width: 104px;
+}
+
+.header-search .ant-input,
+.header-search .ant-select-selector,
+.header-search .ant-btn {
+  height: 40px;
+}
+
+.search-select .ant-select-selector {
+  display: flex;
+  align-items: center;
+}
+
+.search-button.ant-btn {
+  width: 48px;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.search-button.ant-btn:hover {
+  background: #4096ff;
+  border-color: #4096ff;
+  color: #fff;
+}
+
+
+.header-actions {
+  margin-left: auto;
+  flex: 0 0 auto;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.signup-btn {
+  font-weight: 600;
+}
+
+.cart-icon {
+  font-size: 20px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+/* ---------- Main ---------- */
+.site-main {
+  flex: 1;
+}
+
+.home-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 24px 56px;
+}
+
+.hero-section {
+  margin-bottom: 24px;
+}
+
+.hero {
+  background: linear-gradient(180deg, #f4f6fb 0%, #fafafa 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 40px;
+  text-align: center;
+}
+
+.hero h2.ant-typography {
+  margin: 0 0 8px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.hero-sub.ant-typography {
+  display: block;
+  font-size: 15px;
+  color: var(--text-sub);
+  margin-bottom: 22px;
+}
+
+.hero-btn {
+  border-radius: 999px;
+  padding: 0 28px;
+}
+
+/* ---------- Category ---------- */
+.category-section {
+  margin-bottom: 36px;
+}
+
+.category-card {
+  border: none;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.category-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #f4f4f5;
+  color: #3f3f46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.category-item:hover .category-icon {
+  background: #eef4ff;
+  color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.category-label {
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+/* ---------- Recommend ---------- */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.section-head h4.ant-typography {
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+
+.shop-cover {
+  height: 132px;
+  background: #f4f4f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-emoji {
+  font-size: 44px;
+}
+
+.shop-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.shop-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.shop-rate.ant-rate {
+  font-size: 13px;
+}
+
+.shop-score {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.shop-distance {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+.shop-tags {
+  margin-bottom: 10px;
+}
+
+.shop-tags .ant-tag {
+  background: #f4f4f5;
+  color: #3f3f46;
+  border-radius: 6px;
+}
+
+.shop-bottom {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.shop-price {
+  color: var(--text-main);
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.price-symbol {
+  font-size: 14px;
+}
+
+.price-unit {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-sub);
+}
+
+.shop-time {
+  color: var(--text-sub);
+  font-size: 13px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: #fff;
+  color: var(--text-sub);
+  padding: 22px 24px;
+}
+
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.footer-sep {
+  color: #d4d4d8;
+}
+
+
+/* 分类：一行 5 个 */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px 12px;
+}
+
+@media (max-width: 768px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------- Auth ---------- */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: linear-gradient(135deg, #f4f7ff 0%, #fafafa 60%, #eef4ff 100%);
+}
+
+.auth-card {
+  width: min(100%, 440px);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(24, 24, 27, 0.08);
+}
+
+.auth-brand {
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.auth-card h3.ant-typography {
+  margin-bottom: 6px;
+}
+
+.auth-form {
+  margin-top: 28px;
+}
+
+.auth-form .ant-btn-primary {
+  margin-top: 8px;
+}
+
+.demo-accounts {
+  width: 100%;
+  justify-content: center;
+}
+
+.demo-tip {
+  margin-top: 20px;
+}
+
+.role-tip {
+  display: block;
+  margin: -8px 0 12px;
+}
+
+.auth-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--text-sub);
+}
+
+.auth-footer a {
+  margin-left: 4px;
+}
+
+.user-menu-button {
+  max-width: 260px;
+}
+
+.user-menu-button .ant-space {
+  max-width: 100%;
+}
+
+.user-menu-button .ant-space-item:nth-child(2) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Role workspaces ---------- */
+.console-layout {
+  min-height: 100vh;
+}
+
+.console-sider {
+  min-height: 100vh;
+}
+
+.console-brand {
+  height: 68px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.console-role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 16px 18px;
+  padding: 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.console-role .ant-typography {
+  display: block;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.console-role .ant-tag {
+  margin-inline-end: 0;
+}
+
+.console-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.console-content {
+  padding: 28px;
+  background: var(--bg-page);
+}
+
+.console-content > .ant-typography {
+  margin-top: 0;
+}
+
+.workspace-card {
+  margin-top: 24px;
+}
+
+.workspace-icon {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 28px;
+}
+
+.workspace-chart-icon {
+  margin-left: 10px;
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .header-inner {
+    gap: 10px;
+    padding: 0 14px;
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .user-menu-button {
+    padding-inline: 6px;
+  }
+
+  .user-menu-button .ant-tag {
+    display: none;
+  }
+
+  .console-content {
+    padding: 20px 16px;
+  }
 }
