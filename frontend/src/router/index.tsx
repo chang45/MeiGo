@@ -10,6 +10,9 @@ import ConsumerHome from '../pages/role/ConsumerHome';
 import MerchantHome from '../pages/role/MerchantHome';
 import RiderHome from '../pages/role/RiderHome';
 import AdminHome from '../pages/role/AdminHome';
+import MerchantReview from '../pages/role/MerchantReview';
+import CategoryManage from '../pages/role/CategoryManage';
+import PlatformStats from '../pages/role/PlatformStats';
 import { GuestOnly, RequireAuth } from './RequireAuth';
 
 export default function AppRouter() {
@@ -40,8 +43,11 @@ export default function AppRouter() {
         </Route>
       </Route>
       <Route element={<RequireAuth roles={['admin']} />}>
-        <Route element={<ConsoleLayout />}>
-          <Route path="admin" element={<AdminHome />} />
+        <Route path="admin" element={<ConsoleLayout />}>
+          <Route index element={<AdminHome />} />
+          <Route path="merchants" element={<MerchantReview />} />
+          <Route path="categories" element={<CategoryManage />} />
+          <Route path="statistics" element={<PlatformStats />} />
         </Route>
       </Route>
 

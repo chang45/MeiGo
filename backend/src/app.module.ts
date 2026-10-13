@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bullmq';
 import configuration from './config/configuration';
+import { CategoryModule } from './modules/category/category.module';
+import { MerchantModule } from './modules/merchant/merchant.module';
+import { StatisticsModule } from './modules/statistics/statistics.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import configuration from './config/configuration';
         },
       }),
     }),
+    CategoryModule,
+    MerchantModule,
+    StatisticsModule,
   ],
 })
 export class AppModule {}

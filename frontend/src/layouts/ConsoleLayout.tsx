@@ -28,9 +28,9 @@ const workspaceMenus: Record<Role, MenuProps['items']> = {
   ],
   admin: [
     { key: '/admin', label: '数据看板' },
-    { key: 'admin-merchants', label: '商家审核', disabled: true },
-    { key: 'admin-categories', label: '分类管理', disabled: true },
-    { key: 'admin-statistics', label: '平台统计', disabled: true },
+    { key: '/admin/merchants', label: '商家审核' },
+    { key: '/admin/categories', label: '分类管理' },
+    { key: '/admin/statistics', label: '平台统计' },
   ],
 };
 
