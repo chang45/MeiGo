@@ -14,8 +14,8 @@ export class MerchantRepository {
     private readonly repo: Repository<Merchant>,
   ) {}
 
-  create(dto: ApplyMerchantDto): Merchant {
-    return this.repo.create({ ...dto, description: dto.description ?? null, status: 'pending' });
+  create(dto: ApplyMerchantDto, ownerId: number): Merchant {
+    return this.repo.create({ ...dto, description: dto.description ?? null, status: 'pending', ownerId });
   }
 
   findAll(status?: MerchantStatus): Promise<Merchant[]> {
@@ -27,5 +27,9 @@ export class MerchantRepository {
 
   findOne(id: number): Promise<Merchant | null> {
     return this.repo.findOneBy({ id });
+  }
+
+  findOneByOwner(ownerId: number): Promise<Merchant | null> {
+    return this.repo.findOneBy({ ownerId });
   }
 }

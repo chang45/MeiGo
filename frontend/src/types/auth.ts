@@ -3,7 +3,7 @@ export type Role = 'consumer' | 'merchant' | 'rider' | 'admin';
 export type SelfRegisterRole = Exclude<Role, 'admin'>;
 
 export interface User {
-  id: string;
+  id: number;
   username: string;
   nickname: string;
   role: Role;

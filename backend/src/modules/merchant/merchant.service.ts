@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { ApplyMerchantDto } from './dto/apply-merchant.dto';
 import { MerchantResponseDto } from './dto/merchant-response.dto';
@@ -20,14 +26,42 @@ export class MerchantService {
     private readonly dataSource: DataSource,
   ) {}
 
-  /** 商家提交入驻申请，初始状态为待审核。 */
-  async apply(dto: ApplyMerchantDto): Promise<MerchantResponseDto> {
+  /** 商家提交入驻申请，一个商家只能拥有一个店铺。 */
+  async apply(ownerId: number, dto: ApplyMerchantDto): Promise<MerchantResponseDto> {
     return this.dataSource.transaction(async (manager) => {
-      const entity = this.merchantRepository.create(dto);
+      const existing = await this.merchantRepository.findOneByOwner(ownerId);
+      if (existing) {
+        if (existing.status === 'pending') {
+          throw new ConflictException('你的店铺申请正在审核中，请耐心等待');
+        }
+        if (existing.status === 'approved') {
+          throw new ConflictException('你已拥有一个店铺，每个商家只能注册一个店铺');
+        }
+        // 被驳回后可重新提交，复用同一条记录，保证一名商家始终只有一家店铺。
+        existing.name = dto.name;
+        existing.contactName = dto.contactName;
+        existing.phone = dto.phone;
+        existing.address = dto.address;
+        existing.description = dto.description ?? null;
+        existing.status = 'pending';
+        existing.rejectReason = null;
+        existing.reviewedAt = null;
+        const saved = await manager.save(existing);
+        this.logger.log(`商家重新提交入驻申请：${saved.name}`);
+        return MerchantResponseDto.from(saved);
+      }
+
+      const entity = this.merchantRepository.create(dto, ownerId);
       const saved = await manager.save(entity);
       this.logger.log(`商家提交入驻申请：${saved.name}`);
       return MerchantResponseDto.from(saved);
     });
+  }
+
+  /** 查询当前商家自己的店铺，没有则返回 null。 */
+  async findMyStore(ownerId: number): Promise<MerchantResponseDto | null> {
+    const entity = await this.merchantRepository.findOneByOwner(ownerId);
+    return entity ? MerchantResponseDto.from(entity) : null;
   }
 
   /** 按状态查询商家列表。 */

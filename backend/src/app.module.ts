@@ -6,6 +6,8 @@ import configuration from './config/configuration';
 import { CategoryModule } from './modules/category/category.module';
 import { MerchantModule } from './modules/merchant/merchant.module';
 import { StatisticsModule } from './modules/statistics/statistics.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -35,6 +37,8 @@ import { StatisticsModule } from './modules/statistics/statistics.module';
     CategoryModule,
     MerchantModule,
     StatisticsModule,
+    AuthModule,
+    OrderModule,
   ],
 })
 export class AppModule {}

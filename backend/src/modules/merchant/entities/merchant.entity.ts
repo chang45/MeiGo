@@ -10,6 +10,9 @@ export class Merchant {
   @PrimaryGeneratedColumn()
   id!: number;
 
+  @Column({ name: 'owner_id', type: 'int', unique: true, nullable: true })
+  ownerId!: number | null;
+
   @Column({ type: 'varchar', length: 100 })
   name!: string;
 

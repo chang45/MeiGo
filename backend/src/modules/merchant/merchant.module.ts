@@ -5,12 +5,13 @@ import { Merchant } from './entities/merchant.entity';
 import { MerchantController } from './merchant.controller';
 import { MerchantRepository } from './merchant.repository';
 import { MerchantService } from './merchant.service';
+import { AuthModule } from '../auth/auth.module';
 
 /**
  * 商家业务模块。
  */
 @Module({
-  imports: [TypeOrmModule.forFeature([Merchant])],
+  imports: [TypeOrmModule.forFeature([Merchant]), AuthModule],
   controllers: [MerchantController, AdminMerchantController],
   providers: [MerchantService, MerchantRepository],
   exports: [MerchantService],
